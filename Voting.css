@@ -1,0 +1,156 @@
+body {
+    background: black;
+    color:white;
+    margin: 100px auto 0 auto;
+    width: 70%;
+    font-size: 14px;
+    font-family: Tahoma,Verdana,Arial;
+}
+
+.Voting {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    text-align: left;
+}
+
+.Voting-item {
+    cursor: pointer;
+    padding: 8px 0 8px 0;
+    }
+
+.Voting-bar {
+    height: 20px;
+    border: 1px solid #777777;
+    line-height: 20px;
+    position: relative;
+    text-align:center;
+    margin: 3px 0 0 0;
+}
+.Voting-voted .Voting-bar {
+    border: 1px solid white;
+}
+.Voting-item:hover .Voting-bar {
+    border: 1px solid white
+    }
+
+.Voting span {
+    position: relative;
+    z-index: 1;
+    margin: 0 6px 0 0;
+    }
+.Voting-hidden .Voting-bar > span {
+    display:none !important;
+    }
+
+.Voting-bar-filling {
+    background: #404048;
+    position: absolute;
+    top:0;
+    height: 100%;
+    }
+.Voting-voted .Voting-bar-filling {
+    background: #52526B
+}
+.Voting-hidden .Voting-bar-filling {
+    width: 100% !important;
+    }
+
+.Voting-footer {
+    position: relative;
+    margin: 12px 0 0 0;
+    }
+
+.Voting-total {
+    width: 100%;
+    position:absolute;
+    top: 1px;
+    text-align: center;
+    }
+
+.Voting-blind {
+    position:relative;
+    z-index:1;
+    cursor: pointer;
+    }
+.Voting-blind input {   
+    width: 13px;
+    height: 13px;
+    padding: 0;
+    margin:0;
+    vertical-align: bottom;
+    position: relative;
+    *overflow: hidden;
+    }
+
+.Voting-goto {
+    float: right;
+    position:relative;
+    z-index:1;
+    }
+    
+.Voting-slider {
+    margin:12px 0 0 0;
+    }
+    
+.Voting-live {
+    display:-moz-inline-stack;
+    display:inline-block;
+    zoom:1;
+    *display:inline;
+    color: #00C147;
+    opacity: 0;
+    filter:alpha(opacity=0);
+    cursor: default;
+}
+
+.Voting .Voting-slider:hover > a {
+    border: 1px solid white;
+    background: #52526B;
+}
+    
+.Voting .ui-state-focus {
+    outline: none    
+}
+
+.Voting .ui-widget-content {
+    background: transparent;
+    border: 1px solid #777777;
+}
+
+.Voting .ui-corner-all {
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    -khtml-border-radius: 0;
+    border-radius: 0;
+}
+
+.Voting .ui-widget-content .ui-state-default {
+    background: #404048;
+    border: 1px solid #aaa;
+    cursor: pointer;
+}
+
+.Voting .ui-widget-content .ui-state-hover {
+    background: #52526B;
+    border: 1px solid white;
+}
+
+.Voting .ui-slider .ui-slider-handle {
+    width: 20px;
+    height: 18px;
+}
+
+.Voting .ui-slider-horizontal .ui-slider-handle {
+    top: 0;
+    margin-left: -10px;
+}
+
+.Voting .ui-slider-horizontal {
+   height: 20px;
+   cursor: pointer;
+}

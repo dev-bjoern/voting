@@ -1,0 +1,56 @@
+<link href="/public/css/ui-lightness/jquery-ui-1.8.18.custom.css" rel="stylesheet" type="text/css">
+<link href="/public/css/Voting.css" rel="stylesheet" type="text/css">
+
+<h1>dont forget to vote</h1>
+
+<div id="voting" class="Voting">
+
+    <div class="Voting-item" id="Voting-a">
+        <span>Pluto</span>
+        <div class="Voting-bar">
+            <span class="Voting-votes">60</span>
+            <span>Stimmen</span>
+            <span class="Voting-perc">(60%)</span>
+            <div class="Voting-bar-filling" style="width:60%"></div>
+        </div>
+    </div>
+
+    <div class="Voting-item" id="Voting-b">
+        <span>Jupiter</span>
+        <div class="Voting-bar">
+            <span class="Voting-votes">30</span>
+            <span>Stimmen</span>
+            <span class="Voting-perc">(30%)</span>
+            <div class="Voting-bar-filling" style="width:30%"></div>
+        </div>
+    </div>
+
+    <div class="Voting-item" id="Voting-c">
+        <span>Saturn</span>
+        <div class="Voting-bar">
+            <span class="Voting-votes">9</span>
+            <span>Stimmen</span>
+            <span class="Voting-perc">(9%)</span>
+            <div class="Voting-bar-filling" style="width:9%"></div>
+        </div>
+    </div>
+
+    <div class="Voting-slider"></div>
+
+    <div class="Voting-footer">
+        <label class="Voting-blind">hide votes before voting<input type="checkbox"></label>
+
+        <a class="Voting-goto" href="#">go to next voting</a>
+        <div class="Voting-total">
+            <span class="Voting-total-count">100</span>
+            <span>Stimmen</span>
+            <span class="Voting-time"></span>
+            <div class="Voting-live" title="We'll Do It Live">●</div>
+        </div>
+    </div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="//raw.github.com/timrwood/moment/1.7.0/min/moment.min.js"></script>
+
+<script src="/jquery-ui-1.8.18.custom.min.js"></script>
+<script src="/public/scripts/Voting.js"></script>
