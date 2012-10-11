@@ -1,5 +1,8 @@
-<link href="/public/css/ui-lightness/jquery-ui-1.8.18.custom.css" rel="stylesheet" type="text/css">
-<link href="/public/css/Voting.css" rel="stylesheet" type="text/css">
+<link href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" rel="stylesheet">
+
+<!--<link href="/public/css/ui-lightness/jquery-ui-1.8.18.custom.css" rel="stylesheet">-->
+
+<link href="Voting.css" rel="stylesheet" type="text/css">
 
 <h1>dont forget to vote</h1>
 
@@ -49,8 +52,49 @@
         </div>
     </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-<script src="//raw.github.com/timrwood/moment/1.7.0/min/moment.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+<script src="http://raw.github.com/timrwood/moment/1.7.0/min/moment.min.js"></script>
 
-<script src="/jquery-ui-1.8.18.custom.min.js"></script>
-<script src="/public/scripts/Voting.js"></script>
+<script src="Voting.js"></script>
+
+<script>
+    var history = []
+    var arr = {a:0, b:0, c:0}
+
+    for (var i = 0; i < 100; i++) {
+        history[i] = [0, {a:0, b:0, c:0}]
+    }
+
+    for (var j = 1; j < history.length; j++) {
+        var index = getRandomInt(0, 2)
+        var key = makeid()
+
+        arr[key]++
+        history[j][0] = new Date().getTime()/1000
+        history[j][1] = $.extend({}, arr)
+
+        //history[j][1] = $.map(history[j][1], function(v){
+        // return parseInt(v)
+        //})
+    }
+
+    window.voting = $("#voting").voting({
+        history: history
+    })
+
+    function getRandomInt (min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function makeid() {
+        var text = "";
+        var possible = "abc";
+
+        for( var i=0; i < 1; i++ ) {
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
+        }
+
+        return text;
+    }
+</script>

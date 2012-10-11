@@ -1,6 +1,4 @@
-define(["jquery", "jquery-ui-1.8.18.custom.min", "moment", "de"], function($, $ui, moment, de) {
-
-;(function($){
+;(function(){
 
 // Voting Class Definition
 
@@ -311,6 +309,4 @@ define(["jquery", "jquery-ui-1.8.18.custom.min", "moment", "de"], function($, $u
         lang: "de"              // language of moment.js
     }
 
- })(jQuery)
-
-});
+})()
