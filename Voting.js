@@ -21,7 +21,7 @@
         this.$live =    $el.find("div.Voting-live")
 
         // set language of moment.js
-        moment.lang(this.settings.lang)
+        // moment.lang(this.settings.lang)
 
         // set this to true through instance once socket connection is established to activate "live votes" state
         Voting.isLive(false)
@@ -96,7 +96,7 @@
                 }
 
                 // increase clicked vote by 1 and set current timestamp
-                newvote[0]=new Date().getTime()/1000
+                newvote[0] = new Date().getTime()/1000
                 newvote[1][voteid]+=1
             }
 
@@ -104,7 +104,7 @@
             Voting.$el.removeClass("Voting-hidden")
 
             // update slider
-            if(Voting.history) {
+            if(this.settings.history) {
                 var sliderval = Voting.$slider.slider("option", "max")+1
                 Voting.$slider.slider("option", "max", sliderval)
                 Voting.$slider.slider("value", sliderval)
@@ -169,6 +169,8 @@
 
         // sets or gets the isLive status (if we are connected through socket)
         , isLive: function(bool){
+
+            return false
 
             var Voting = this
             if(bool === true || bool === false) Voting.live = bool
@@ -304,9 +306,9 @@
         onVote: function() {},  // when a vote happened
         onBlind: function() {}, // when voteing made invisible
         onBuilt: function() {}, // when Voting is ready
-        voteMode: "pirate",     //regular(once), putin(multi), pirate(once multi)
-        history: undefined,     // pass an array with the voted ids
-        lang: "de"              // language of moment.js
+        voteMode: "pirate",     // regular(once), putin(multi), pirate(once multi)
+        history: undefined     // pass an array with the voted ids
+        //lang: "en"              // language of moment.js
     }
 
 })()

@@ -4,7 +4,7 @@
 
 <link href="Voting.css" rel="stylesheet" type="text/css">
 
-<h1>dont forget to vote</h1>
+<h1>Dont forget to vote.</h1>
 
 <div id="voting" class="Voting">
 
@@ -43,7 +43,6 @@
     <div class="Voting-footer">
         <label class="Voting-blind">hide votes before voting<input type="checkbox"></label>
 
-        <a class="Voting-goto" href="#">go to next voting</a>
         <div class="Voting-total">
             <span class="Voting-total-count">100</span>
             <span>Stimmen</span>
@@ -52,13 +51,14 @@
         </div>
     </div>
 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.js"></script>
 <script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
-<script src="http://raw.github.com/timrwood/moment/1.7.0/min/moment.min.js"></script>
+<script src="https://raw.github.com/timrwood/moment/1.7.2/moment.js"></script>
 
 <script src="Voting.js"></script>
 
 <script>
+
     var history = []
     var arr = {a:0, b:0, c:0}
 
@@ -79,6 +79,8 @@
         //})
     }
 
+   // console.log(history)
+
     window.voting = $("#voting").voting({
         history: history
     })
@@ -97,4 +99,5 @@
 
         return text;
     }
+
 </script>

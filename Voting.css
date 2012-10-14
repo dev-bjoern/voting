@@ -86,12 +86,6 @@ body {
     position: relative;
     *overflow: hidden;
     }
-
-.Voting-goto {
-    float: right;
-    position:relative;
-    z-index:1;
-    }
     
 .Voting-slider {
     margin:12px 0 0 0;
