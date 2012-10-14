@@ -1,7 +1,4 @@
 <link href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" rel="stylesheet">
-
-<!--<link href="/public/css/ui-lightness/jquery-ui-1.8.18.custom.css" rel="stylesheet">-->
-
 <link href="Voting.css" rel="stylesheet" type="text/css">
 
 <h1>Dont forget to vote.</h1>
@@ -12,7 +9,7 @@
         <span>Pluto</span>
         <div class="Voting-bar">
             <span class="Voting-votes">60</span>
-            <span>Stimmen</span>
+            <span>votes</span>
             <span class="Voting-perc">(60%)</span>
             <div class="Voting-bar-filling" style="width:60%"></div>
         </div>
@@ -22,7 +19,7 @@
         <span>Jupiter</span>
         <div class="Voting-bar">
             <span class="Voting-votes">30</span>
-            <span>Stimmen</span>
+            <span>votes</span>
             <span class="Voting-perc">(30%)</span>
             <div class="Voting-bar-filling" style="width:30%"></div>
         </div>
@@ -32,7 +29,7 @@
         <span>Saturn</span>
         <div class="Voting-bar">
             <span class="Voting-votes">9</span>
-            <span>Stimmen</span>
+            <span>votes</span>
             <span class="Voting-perc">(9%)</span>
             <div class="Voting-bar-filling" style="width:9%"></div>
         </div>
@@ -41,13 +38,13 @@
     <div class="Voting-slider"></div>
 
     <div class="Voting-footer">
-        <label class="Voting-blind">hide votes before voting<input type="checkbox"></label>
+        <label class="Voting-blind" title="You will not see any votes before you have voted.">Hide votes before voting <input type="checkbox"></label>
 
         <div class="Voting-total">
             <span class="Voting-total-count">100</span>
-            <span>Stimmen</span>
+            <span>votes</span>
             <span class="Voting-time"></span>
-            <div class="Voting-live" title="We'll Do It Live">●</div>
+            <div class="Voting-live" title="Socket connection established. New votes appear in realtime.">&#9679;</div>
         </div>
     </div>
 
@@ -58,6 +55,7 @@
 <script src="Voting.js"></script>
 
 <script>
+!function(){
 
     var history = []
     var arr = {a:0, b:0, c:0}
@@ -66,30 +64,27 @@
         history[i] = [0, {a:0, b:0, c:0}]
     }
 
+    var minustime
     for (var j = 1; j < history.length; j++) {
         var index = getRandomInt(0, 2)
-        var key = makeid()
+        var key = genereateId()
 
         arr[key]++
-        history[j][0] = new Date().getTime()/1000
+        history[j][0] = new Date().getTime()/1000 - ((history.length-j)*100)
         history[j][1] = $.extend({}, arr)
-
-        //history[j][1] = $.map(history[j][1], function(v){
-        // return parseInt(v)
-        //})
     }
-
-   // console.log(history)
 
     window.voting = $("#voting").voting({
         history: history
     })
 
+    console.log(history)
+
     function getRandomInt (min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    function makeid() {
+    function genereateId() {
         var text = "";
         var possible = "abc";
 
@@ -100,4 +95,5 @@
         return text;
     }
 
+}()
 </script>
