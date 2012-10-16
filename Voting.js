@@ -126,11 +126,27 @@
             Voting.history[Voting.history.length] = $.extend({}, historySnap)
 
             // slider is on last position? we animate the bars to new position and visually indicate
-            if(sliderOnMax.call(Voting)) {
+            if(this.settings.history && sliderOnMax.call(Voting)) {
 
                 // update slider
                 increaseSlider.call(Voting, true)
 
+                animate()
+
+            } else if (this.settings.history) {
+
+                // update slider
+                increaseSlider.call(Voting)
+
+                // small indication that a vote happened
+                Voting.$live.animate({"opacity": 1}, 300)
+                Voting.$live.animate({"opacity": 0}, 100)
+            } else {
+
+                animate()
+            }
+
+            function animate(){
                 // call showLive to show the green live dot indicator
                 showLive.call(Voting, true)
 
@@ -145,14 +161,6 @@
                     var index = $("#Voting-" + key).index()
                     Voting.$bars.eq(index).animate({opacity: 0.5}, {queue: false}).animate({opacity: 1})
                 })
-
-            } else {
-                // update slider
-                increaseSlider.call(Voting)
-
-                // small indication that a vote happened
-                Voting.$live.animate({"opacity": 1}, 300)
-                Voting.$live.animate({"opacity": 0}, 100)
             }
         }
 
@@ -291,7 +299,7 @@
         return this.each(function () {
             var $this = $(this)
             , data = $this.data('voting')
-            if (!data) $this.data('voting', (new Voting($this, options)))
+            if (!data) $this.data('voting', (data = new Voting($this, options)))
         })
     }
 
@@ -303,7 +311,7 @@
         onToggleVotingHidden: function(trueOrFalse) {}, // when voteing made invisible
         onBuilt: function() {},                         // when Voting is ready
         voteMode: "pirate",                             // regular(once), putin(multi), pirate(once multi)
-        history: null,                                   // pass an array with the voted ids
+        history: null,                                  // pass an array with the voted ids
         historyTime: function(timeOfVote) {
             return timeOfVote
         }
