@@ -64,7 +64,6 @@
         history[i] = [0, {a:0, b:0, c:0}]
     }
 
-    var minustime
     for (var j = 1; j < history.length; j++) {
         var index = getRandomInt(0, 2)
         var key = genereateId()
@@ -75,10 +74,11 @@
     }
 
     window.voting = $("#voting").voting({
-        history: history
+        history: history,
+        historyTime: function(timeOfVote){
+            return moment(timeOfVote).fromNow()
+        }
     })
-
-    console.log(history)
 
     function getRandomInt (min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;

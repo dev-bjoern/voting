@@ -20,12 +20,6 @@
         this.$slider =  $el.find("div.Voting-slider")
         this.$live =    $el.find("div.Voting-live")
 
-        // set language of moment.js
-        // moment.lang(this.settings.lang)
-
-        // set this to true through instance once socket connection is established to activate "live votes" state
-        Voting.isLive(false)
-
         // short ref history. if no history was given we create a dummy history consisting of only the last voting state taken from the dom
         this.history = this.settings.history || [[0, getCurrentVoteObj.call(Voting)]]
 
@@ -50,7 +44,7 @@
 
         // bind event listeners
         this.$el    .on("click", "div.Voting-item", $.proxy(onItemClick,            Voting)) // when a vote is clicked
-        this.$blind .on("change",                   $.proxy(onBlindChange,          Voting)) // when the hide votes label is clicked
+        this.$blind .on("change",                   $.proxy(onToggleVotingHidden,   Voting)) // when the hide votes label is clicked
         this.$slider.on("slide",                    $.proxy(onHistorySlide,         Voting)) // when history slider is slided
                     .on("slidechange",              $.proxy(onHistorySlideChange,   Voting))
                     .on("slidestart",               $.proxy(onHistorySlideStart,    Voting))
@@ -132,7 +126,7 @@
             Voting.history[Voting.history.length] = $.extend({}, historySnap)
 
             // slider is on last position? we animate the bars to new position and visually indicate
-            if(onLast.call(Voting)) {
+            if(sliderOnMax.call(Voting)) {
 
                 // update slider
                 increaseSlider.call(Voting, true)
@@ -162,20 +156,20 @@
             }
         }
 
-        , changeVoteblind: function(bool){
+        , toggleVotingHidden: function(bool){
             this.$el.toggleClass("Voting-hidden", bool)
-            this.settings.onBlind.call(this, bool)
+            this.settings.onToggleVotingHidden.call(this, bool)
         }
 
         // sets or gets the isLive status (if we are connected through socket)
         , isLive: function(bool){
 
-            return false
-
             var Voting = this
             if(bool === true || bool === false) Voting.live = bool
 
-            if(onLast.call(Voting)) {
+            if(this.settings.history && sliderOnMax.call(Voting)) {
+                showLive.call(Voting, bool)
+            } else {
                 showLive.call(Voting, bool)
             }
 
@@ -189,7 +183,7 @@
     function increaseSlider(bool){
         var maxsliderval = this.$slider.slider("option", "max")
         this.$slider.slider("option", "max", maxsliderval+=1)
-        if(bool) this.$slider.slider("value", maxsliderval)
+        if(bool === true) this.$slider.slider("value", maxsliderval)
     }
 
     function calcTotal(indivotes){
@@ -234,17 +228,19 @@
             })(i, voteid, perc)
         }
 
+        if(this.settings.history) {
         // update time of vote text
-        Voting.$time
-            .text(moment(timeOfVote).fromNow())
-            .attr("title", new Date(timeOfVote))
+            Voting.$time
+                .text(this.settings.historyTime.call(this, timeOfVote))
+                .attr("title", new Date(timeOfVote))
+        }
 
         // update total votes text
         Voting.$total.text(totalvotes)
     }
 
     // returns true if the current slider value equals the max sliderval (we are in last position)
-    function onLast(){
+    function sliderOnMax(){
         var Voting = this
         , currentsliderval = Voting.$slider.slider("value")
         , maxsliderval = Voting.$slider.slider("option", "max")
@@ -270,9 +266,9 @@
         this.increaseVote(el.id)
     }
 
-    function onBlindChange(){
+    function onToggleVotingHidden(){
         var checked = this.$blind.is(":checked")
-        this.changeVoteblind(checked)
+        this.toggleVotingHidden(checked)
     }
 
     function onHistorySlide(event, ui){
@@ -302,13 +298,14 @@
 // default options
 
     $.fn.voting.defaults = {
-        beforeVote: function() {}, // called just before a vote is made, return false from here to prevent vote
-        onVote: function() {},  // when a vote happened
-        onBlind: function() {}, // when voteing made invisible
-        onBuilt: function() {}, // when Voting is ready
-        voteMode: "pirate",     // regular(once), putin(multi), pirate(once multi)
-        history: undefined     // pass an array with the voted ids
-        //lang: "en"              // language of moment.js
+        beforeVote: function() {},                      // called just before a vote is made, return false from here to prevent vote
+        onVote: function() {},                          // when a vote happened
+        onToggleVotingHidden: function(trueOrFalse) {}, // when voteing made invisible
+        onBuilt: function() {},                         // when Voting is ready
+        voteMode: "pirate",                             // regular(once), putin(multi), pirate(once multi)
+        history: null,                                   // pass an array with the voted ids
+        historyTime: function(timeOfVote) {
+            return timeOfVote
+        }
     }
-
 })()
