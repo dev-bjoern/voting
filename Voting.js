@@ -155,7 +155,7 @@
 
                 // find the changed votes and visually indicate them
                 var changedVotes = $.map(historySnap[1], function(val, key){
-                    if (Voting.history[Voting.history.length-2][1][key] !== val) return key
+                    if (Voting.history[Voting. history.length-2][1][key] !== val) return key
                 })
                 $.each(changedVotes, function(i, key) {
                     var index = $("#Voting-" + key).index()
